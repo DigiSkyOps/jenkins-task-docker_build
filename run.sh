@@ -79,7 +79,7 @@ if [ -n "${ABS_ARTIFACT_LANE}" ]; then
 fi
 
 if [ -n "${ABS_GROUP_ID_PATH}" ]; then
-  args="$args GROUP_ID_PATH='${ABS_GROUP_ID_PATH}"
+  args="$args GROUP_ID_PATH='${ABS_GROUP_ID_PATH}'"
 fi
 
 if [ -n "${ABS_ARTIFACT_ID}" ]; then
