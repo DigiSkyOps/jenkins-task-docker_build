@@ -2,7 +2,7 @@
 version: '1.0'
 box: docker
 
-name: docker
+name: docker_build
 
 # pipeline -> stage -> tasks
 vars:
