@@ -104,7 +104,7 @@ if [ -n "${ABS_ARTIFACT_VERSION}" ]; then
   append_argkv ${argkv}
 fi
 
-if [ -n "${args}" ]; then
+if [ -n "${argslist}" ]; then
   args="--build-arg ${argslist}"
 fi
 
