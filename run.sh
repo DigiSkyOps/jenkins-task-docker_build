@@ -70,28 +70,42 @@ raw_args=${ABS_DOCKER_BUILD_RAW_ARGS}
 # artifact.id
 # artifact.version
 
+argslist=
+
+append_argkv() {
+  if [ -n "$argslist" ]; then
+    argslist="${argslist},$1"
+  else
+    argslist=$1
+  fi
+}
 if [ -n "${ABS_ARTIFACT_HOST}" ]; then
-  args="$args ARTIFACT_HOST='${ABS_ARTIFACT_HOST}'"
+  argkv="ARTIFACT_HOST='${ABS_ARTIFACT_HOST}'"
+  append_argkv ${argkv}
 fi
 
 if [ -n "${ABS_ARTIFACT_LANE}" ]; then
-  args="$args ARTIFACT_LANE='${ABS_ARTIFACT_LANE}'"
+  argkv="ARTIFACT_LANE='${ABS_ARTIFACT_LANE}'"
+  append_argkv ${argkv}
 fi
 
 if [ -n "${ABS_GROUP_ID_PATH}" ]; then
-  args="$args GROUP_ID_PATH='${ABS_GROUP_ID_PATH}'"
+  argkv="GROUP_ID_PATH='${ABS_GROUP_ID_PATH}'"
+  append_argkv ${argkv}
 fi
 
 if [ -n "${ABS_ARTIFACT_ID}" ]; then
-  args="$args ARTIFACT_ID='${ABS_ARTIFACT_ID}'"
+  argkv="ARTIFACT_ID='${ABS_ARTIFACT_ID}'"
+  append_argkv ${argkv}
 fi
 
 if [ -n "${ABS_ARTIFACT_VERSION}" ]; then
-  args="$args ARTIFACT_VERSION='${ABS_ARTIFACT_VERSION}'"
+  argkv="ARTIFACT_VERSION='${ABS_ARTIFACT_VERSION}'"
+  append_argkv ${argkv}
 fi
 
 if [ -n "${args}" ]; then
-  args="--build-arg ${args}"
+  args="--build-arg ${argslist}"
 fi
 
 # Check Docker is installed
