@@ -3,7 +3,6 @@
 set +e
 set -o noglob
 
-
 #
 # Set Colors
 #
@@ -35,6 +34,7 @@ info() { printf "${white}➜ %s${reset}\n" "$@"
 success() { printf "${green}✔ %s${reset}\n" "$@"
 }
 error() { printf "${red}✖ %s${reset}\n" "$@"
+  exit -1
 }
 warn() { printf "${tan}➜ %s${reset}\n" "$@"
 }
@@ -55,8 +55,7 @@ type_exists() {
 # docker.image
 # docker.path
 if [ -z "$ABS_DOCKER_IMAGE" ]; then
-  info "Please set the 'image' variable"
-  exit 1
+  error "Please set the 'image' variable"
 fi
 
 # command specific flags
@@ -94,11 +93,9 @@ fi
 
 # Check Docker is installed
 if ! type_exists 'docker'; then
-  error "Docker is not installed on this box."
   info "Please use a box with docker installed"
-  exit 1
+  error "Docker is not installed on this box."
 fi
-
 
 # Variables
 IMAGE="$ABS_DOCKER_IMAGE"
@@ -112,18 +109,16 @@ h1 "Step 1: Building image"
 
 # Check a Dockerfile is present
 if [ ! -f "$IMAGE_PATH/Dockerfile" ]; then
-  error "No Dockerfile found in folder $IMAGE_PATH."
   info "Please create a Dockerfile : https://docs.docker.com/reference/builder/"
-  exit 1
+  error "No Dockerfile found in folder $IMAGE_PATH."
 fi
 
-
-info "$DOCKER_BUILD"
 DOCKER_BUILD="docker build --pull ${args} ${raw_args} -t $IMAGE $IMAGE_PATH"
-docker build --pull ${args} ${raw_args} -t $IMAGE $IMAGE_PATH
+info "$DOCKER_BUILD"
+exec $DOCKER_BUILD
 if [ $? -ne 0 ];then
   warn $DOCKER_BUILD
-  fail "Building image $IMAGE failed"
+  error "Building image $IMAGE failed"
 else
   success "Building image $IMAGE succeeded"
 fi
