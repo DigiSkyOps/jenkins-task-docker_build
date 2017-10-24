@@ -8,15 +8,15 @@ set -o noglob
 # Set Colors
 #
 
-bold=$(tput bold)
-underline=$(tput sgr 0 1)
-reset=$(tput sgr0)
+bold=
+underline=
+reset=
 
-red=$(tput setaf 1)
-green=$(tput setaf 76)
-white=$(tput setaf 7)
-tan=$(tput setaf 202)
-blue=$(tput setaf 25)
+red=
+green=
+white=
+tan=
+blue=
 
 #
 # Headers and Logging
@@ -71,23 +71,27 @@ raw_args=${ABS_DOCKER_BUILD_RAW_ARGS}
 # artifact.version
 
 if [ -n ${ABS_ARTIFACT_HOST} ]; then
-  args="$args --build-arg ARTIFACT_HOST=${ABS_ARTIFACT_HOST}"
+  args="$args ARTIFACT_HOST=${ABS_ARTIFACT_HOST}"
 fi
 
 if [ -n ${ABS_ARTIFACT_LANE} ]; then
-  args="$args --build-arg ARTIFACT_LANE=${ABS_ARTIFACT_LANE}"
+  args="$args ARTIFACT_LANE=${ABS_ARTIFACT_LANE}"
 fi
 
 if [ -n ${ABS_GROUP_ID_PATH} ]; then
-  args="$args --build-arg GROUP_ID_PATH=${ABS_GROUP_ID_PATH}"
+  args="$args GROUP_ID_PATH=${ABS_GROUP_ID_PATH}"
 fi
 
 if [ -n ${ABS_ARTIFACT_ID} ]; then
-  args="$args --build-arg ARTIFACT_ID=${ABS_ARTIFACT_ID}"
+  args="$args ARTIFACT_ID=${ABS_ARTIFACT_ID}"
 fi
 
 if [ -n ${ABS_ARTIFACT_VERSION} ]; then
-  args="$args --build-arg ARTIFACT_VERSION=${ABS_ARTIFACT_VERSION}"
+  args="$args ARTIFACT_VERSION=${ABS_ARTIFACT_VERSION}"
+fi
+
+if [ -n $args ]; then
+  args="--build-arg $args"
 fi
 
 # Check Docker is installed
