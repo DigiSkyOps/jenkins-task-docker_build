@@ -118,12 +118,10 @@ if [ ! -f "$IMAGE_PATH/Dockerfile" ]; then
 fi
 
 
-DOCKER_BUILD="docker build --pull ${args} ${raw_args} -t $IMAGE $IMAGE_PATH"
 info "$DOCKER_BUILD"
-DOCKER_BUILD_OUTPUT=$($DOCKER_BUILD)
+docker build --pull ${args} ${raw_args} -t $IMAGE $IMAGE_PATH
 
 if [ $? -ne 0 ];then
-  warn $DOCKER_BUILD_OUTPUT
   fail "Building image $IMAGE failed"
 else
   success "Building image $IMAGE succeeded"
