@@ -120,7 +120,7 @@ fi
 
 info "$DOCKER_BUILD"
 DOCKER_BUILD="docker build --pull ${args} ${raw_args} -t $IMAGE $IMAGE_PATH"
-$(DOCKER_BUILD)
+$($DOCKER_BUILD)
 if [ $? -ne 0 ];then
   warn $DOCKER_BUILD
   fail "Building image $IMAGE failed"
