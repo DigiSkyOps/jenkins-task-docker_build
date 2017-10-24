@@ -73,23 +73,23 @@ raw_args=${ABS_DOCKER_BUILD_RAW_ARGS}
 argslist=
 
 if [ -n "${ABS_ARTIFACT_HOST}" ]; then
-  args="$args --build-arg ARTIFACT_HOST='${ABS_ARTIFACT_HOST}'"
+  args="$args --build-arg ARTIFACT_HOST=${ABS_ARTIFACT_HOST}"
 fi
 
 if [ -n "${ABS_ARTIFACT_LANE}" ]; then
-  args="$args --build-arg ARTIFACT_LANE='${ABS_ARTIFACT_LANE}'"
+  args="$args --build-arg ARTIFACT_LANE=${ABS_ARTIFACT_LANE}"
 fi
 
 if [ -n "${ABS_GROUP_ID_PATH}" ]; then
-  args="$args --build-arg GROUP_ID_PATH='${ABS_GROUP_ID_PATH}'"
+  args="$args --build-arg GROUP_ID_PATH=${ABS_GROUP_ID_PATH}"
 fi
 
 if [ -n "${ABS_ARTIFACT_ID}" ]; then
-  args="$args --build-arg ARTIFACT_ID='${ABS_ARTIFACT_ID}'"
+  args="$args --build-arg ARTIFACT_ID=${ABS_ARTIFACT_ID}"
 fi
 
 if [ -n "${ABS_ARTIFACT_VERSION}" ]; then
-  args="$args --build-arg ARTIFACT_VERSION='${ABS_ARTIFACT_VERSION}'"
+  args="$args --build-arg ARTIFACT_VERSION=${ABS_ARTIFACT_VERSION}"
 fi
 
 # Check Docker is installed
